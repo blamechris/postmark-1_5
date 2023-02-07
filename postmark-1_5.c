@@ -973,8 +973,8 @@ int cli_run(param) /* none */
 char *param; /* unused */
 {
    time_t start_time,t_start_time,t_end_time,end_time; /* elapsed timers */
-   time_t now = time(NULL); /* current time */
-   struct tm *timeinfo = localtime(&now); /* current time in human readable form */
+   time_t start, end; /* start and end time*/
+   struct tm *timeinfo = localtime(&start); /* current time in human readable form */
    int delete_base; /* snapshot of deleted files counter */
    FILE *fp=NULL; /* file descriptor for directing output */
    int incomplete;
@@ -1008,7 +1008,7 @@ char *param; /* unused */
       create_subdirectories(file_systems,NULL,subdirectories);
       printf("Done\n");
       }
-   printf("Start time and date: %s", asctime(timeinfo));  /* print time and date at start of run*/
+   printf("Start time and date: %s", ctime(&start));  /* print time and date at start of run*/
    time(&start_time); /* store start time */
 
    /* create files in specified directory until simultaneous number */
@@ -1036,7 +1036,7 @@ char *param; /* unused */
 
    /* print end time and difference, transaction numbers */
    time(&end_time);
-   printf("End time and date: %s", asctime(timeinfo));  /* print time and date at end of run */
+   printf("End time and date: %s", ctime(end));  /* print time and date at end of run */
 
    /* delete previously created subdirectories */
    if (subdirectories>1)
